@@ -50,39 +50,33 @@ public class teacherController extends HttpServlet {
 		List<Teacher> teachers = teacherDAO.getAllTeachers();
 		request.setAttribute("teachers", teachers);
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	    String id = request.getParameter("id");
         if (id != null) {
            doPost(request,response);
         }else {
 		rd = application.getRequestDispatcher("/Teacher.jsp");
 		rd.forward(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());}
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*servletContext = getServletContext();
+		servletContext = getServletContext();
         String id = request.getParameter("id");
-        if (id != "") {
+        if (id != null) {
         	 teacherDAO.deleteTeacher(Integer.parseInt(id));
         }
-
-        response.sendRedirect("/ExamProject/");*/
+        else {
 		ServletFileUpload upload = new ServletFileUpload();
 		Part filePart = request.getPart("file");
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 		String filePath = getServletContext().getRealPath("/WEB-INF/uploads/" + fileName);
 		filePart.write(filePath);
-
 		boolean success = teacherDAO.importTeachers(filePath);
-		if (success) {
-			response.sendRedirect("/ExamProject/");
-		} else {
-			// handle import failure
-		}
+        }
+		response.sendRedirect("/ExamProject/");
 	}
 
 }

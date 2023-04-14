@@ -10,19 +10,20 @@
 <meta charset="ISO-8859-1">
 <title>Teacher List</title>
 <style>
-.btn-default{
-    float: left;
+.add-btn .btn-default{
+    float: right;
 }
 
 </style>
 </head>
 <body>
+<div class="layout">
 <jsp:include page="sidebar.jsp" />
 <div class="main">
-    <div class="row">
+    <div class="add-btn">
         <a href="teacherForm.jsp" class="btn btn-default">Add</a>
     </div>
-    <div class="row">
+    <div class="">
         <form action="import" method="post" enctype="multipart/form-data">
              <div class="form-group">
                  <input type="file" name="file" class="btn btn-default">
@@ -60,5 +61,6 @@
         </tbody>
     </table>
     </div>
+</div>
 </body>
 </html>
