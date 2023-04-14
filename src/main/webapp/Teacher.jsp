@@ -11,17 +11,28 @@
 <title>Teacher List</title>
 <style>
 .btn-default{
-float: right;
+    float: left;
 }
-}
+
 </style>
 </head>
 <body>
 <jsp:include page="sidebar.jsp" />
 <div class="main">
-   <a href="teacherForm.jsp" class="btn btn-default">Add</a>
-
-    <h1>Teachers</h1>
+    <div class="row">
+        <a href="teacherForm.jsp" class="btn btn-default">Add</a>
+    </div>
+    <div class="row">
+        <form action="import" method="post" enctype="multipart/form-data">
+             <div class="form-group">
+                 <input type="file" name="file" class="btn btn-default">
+                 <input type="submit" value="Import" class="btn btn-default">
+             </div>    
+         </form>
+    </div>
+    <div class="row">
+        <h1>Teachers</h1>
+    </div>
     <table class="table table-striped">
     <thead>	
         <tr>

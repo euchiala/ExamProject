@@ -113,18 +113,22 @@ public class TeacherDAO {
 
     // Import teachers from a CSV file
     public boolean importTeachers(String filePath) {
-        String query = "INSERT INTO teachers (name, email, phone) VALUES (?, ?, ?)";
+        String query = "INSERT INTO teachers (first_name, last_name, email, institution,phone) VALUES (?, ?, ?, ?, ?)";
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
              PreparedStatement statement = conn.prepareStatement(query)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                String name = data[0].trim();
-                String email = data[1].trim();
-                String phone = data[2].trim();
-                statement.setString(1, name);
-                statement.setString(2, email);
-                statement.setString(3, phone);
+                String first_name = data[0].trim();
+                String last_name = data[1].trim();
+                String email = data[2].trim();
+                String institution = data[3].trim();
+                String phone = data[4].trim();
+                statement.setString(1, first_name);
+                statement.setString(2, last_name);
+                statement.setString(3, email);
+                statement.setString(4, institution);
+                statement.setInt(5, Integer.parseInt(phone));
                 statement.addBatch();
             }
             int[] rowsInserted = statement.executeBatch();

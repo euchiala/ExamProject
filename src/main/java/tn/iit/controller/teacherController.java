@@ -1,16 +1,22 @@
 package tn.iit.controller;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 
 import tn.iit.DAO.DatabaseConnection;
 import tn.iit.DAO.TeacherDAO;
@@ -19,7 +25,8 @@ import tn.iit.model.Teacher;
 /**
  * Servlet implementation class teacherServlet$
  */
-@WebServlet("/")
+@WebServlet({"/", "/import"})
+@MultipartConfig
 public class teacherController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TeacherDAO teacherDAO = new TeacherDAO(DatabaseConnection.getConnection());
@@ -57,13 +64,25 @@ public class teacherController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		servletContext = getServletContext();
+		/*servletContext = getServletContext();
         String id = request.getParameter("id");
         if (id != "") {
         	 teacherDAO.deleteTeacher(Integer.parseInt(id));
         }
 
-        response.sendRedirect("/ExamProject/");
+        response.sendRedirect("/ExamProject/");*/
+		ServletFileUpload upload = new ServletFileUpload();
+		Part filePart = request.getPart("file");
+		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+		String filePath = getServletContext().getRealPath("/WEB-INF/uploads/" + fileName);
+		filePart.write(filePath);
+
+		boolean success = teacherDAO.importTeachers(filePath);
+		if (success) {
+			response.sendRedirect("/ExamProject/");
+		} else {
+			// handle import failure
+		}
 	}
 
 }
