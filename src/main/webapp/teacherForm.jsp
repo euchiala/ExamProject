@@ -6,14 +6,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Teacher Form</title>
+  <link href='<c:url value="/assets/css/style.css"></c:url>' rel="stylesheet" type="text/css">  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<style type="text/css">
-.btn-default{
-	float:right;
-}
-</style>
 </head>
 <body>
 <jsp:include page="sidebar.jsp" />

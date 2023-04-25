@@ -2,7 +2,6 @@ package tn.iit.controller;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -25,7 +24,7 @@ import tn.iit.model.Teacher;
 /**
  * Servlet implementation class teacherServlet$
  */
-@WebServlet({"/", "/import"})
+@WebServlet({"", "/import"})
 @MultipartConfig
 public class teacherController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

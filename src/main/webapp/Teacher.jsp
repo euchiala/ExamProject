@@ -4,34 +4,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href='<c:url value="/assets/css/style.css"></c:url>' rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <meta charset="ISO-8859-1">
 <title>Teacher List</title>
-<style>
-.add-btn .btn-default{
-    float: right;
-}
-
-</style>
 </head>
 <body>
 <div class="layout">
 <jsp:include page="sidebar.jsp" />
 <div class="main">
     <div class="add-btn">
-        <a href="teacherForm.jsp" class="btn btn-default">Add</a>
-    </div>
+        <a href="teacherForm.jsp" class="btn btn-default">Add</a> <br>
+	</div>
     <div class="">
         <form action="import" method="post" enctype="multipart/form-data">
              <div class="form-group">
-                 <input type="file" name="file" class="btn btn-default">
                  <input type="submit" value="Import" class="btn btn-default">
+                 <input type="file" name="file" class="btn btn-default">
              </div>    
          </form>
     </div>
     <div class="row">
+	    
         <h1>Teachers</h1>
     </div>
     <table class="table table-striped">
@@ -53,8 +49,9 @@
                 <td>${teacher.phone}</td>
 
                 <td>
-                    <a href="teacherFormController?id=${teacher.id}">Edit</a>
-                    <a href="?id=${teacher.id}">Delete</a>
+                	<a href="authorizationController?id=${teacher.id}"><i class='fas fa-file-pdf' style='font-size:25px'></i></a>
+                    <a href="teacherFormController?id=${teacher.id}"><i class="fa fa-edit" style="font-size:25px"></i></a>
+                    <a href="?id=${teacher.id}"><i class="fa fa-trash" style="font-size:25px"></i></a>
                 </td>
             </tr>
         </c:forEach>

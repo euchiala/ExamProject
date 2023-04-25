@@ -1,68 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link href="assets/css/style.css" rel="stylesheet" type="text/css">
-<style>
-body {
+<link href='<c:url value="/assets/css/style.css"></c:url>' rel="stylesheet" type="text/css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" type="text/css">
 
-}
-
-.sidenav {
-  height: 100%;
-  width: 160px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-
-.sidenav a {
-  padding: 2px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.main {
-  margin-left: 160px; /* Same as the width of the sidenav /
-  font-size: 28px; / Increased text to enable scrolling */
-  padding: 0px 10px;
-}
-
-.sidenav .menu{
-	padding-left:10px;
-}
-
-.sidenav .sub-menu{
-	padding-left:15px;
-}
-.sidenav .sub-menu a{
-font-size: 17px;
-}
-.sidenav li{
-list-style: none;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-</style>
 <title>Insert title here</title>
 </head>
 <body>
 <div class="sidenav">
+<img src='<c:url value="/assets/img/iit.png"></c:url>' class='logo' /> 
 <ul class="menu">
 <li><a href="">Teacher</a>
 <ul class="sub-menu">
