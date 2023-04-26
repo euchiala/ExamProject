@@ -22,7 +22,7 @@ public class AuthorizationDAO {
         String query = "INSERT INTO authorizations (teacher_id, authorization_date, authorized_hours) VALUES (?, ?, ?)";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, authorization.getTeacher().getId());
-            statement.setDate(2, (Date) authorization.getAuthorization_date());
+            statement.setDate(2, new java.sql.Date(authorization.getAuthorization_date().getTime()));
             statement.setInt(3, authorization.getAuthorized_hours());
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {

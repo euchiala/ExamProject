@@ -21,7 +21,11 @@
 <li><a href="/ExamProject/">List</a></li>
 </ul>
 </li>
-<li><a href="#">Authorization</a></li>
+<li><a href="#">Authorization</a>
+<ul class="sub-menu">
+<li><a href="authorizationController">List</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </body>

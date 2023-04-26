@@ -25,7 +25,14 @@
                     'width': 170,
                     'elementHandlers': specialElementHandlers
                 });
-                doc.save('authorization.pdf');
+                var firstName = "${authorization.teacher.first_name}";
+                var lastName = "${authorization.teacher.last_name}";
+                var currentDate = new Date();
+                var day = ("0" + currentDate.getDate()).slice(-2);
+                var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+                var year = currentDate.getFullYear();
+                var fileName = "Authorization_" + firstName + "_" + lastName + "_" + day + month + year + ".pdf";
+                doc.save(fileName);
             }
             function submitForm() {
                 // Submit the form to authorizationController's doPost method

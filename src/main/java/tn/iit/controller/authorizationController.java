@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.WeekFields;
 import java.util.Date;
+import java.util.List;
 
 import tn.iit.DAO.DatabaseConnection;
 import tn.iit.DAO.TeacherDAO;
@@ -56,19 +57,25 @@ public class authorizationController extends HttpServlet {
 			throws ServletException, IOException {
 		ServletContext application = getServletContext();
 		RequestDispatcher rd = null;
-		int authorized_hours = this.getRemainingWeeksOfYear() * 4;
-		LocalDate localDate = LocalDate.now();
-		Date authorization_date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
 		String id = request.getParameter("id");
+		
 		if (id != null) {
+			int authorized_hours = this.getRemainingWeeksOfYear() * 4;
+			LocalDate localDate = LocalDate.now();
+			Date authorization_date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			Teacher teacher = teacherDAO.getTeacherById(Integer.parseInt(id));
 			Authorization authorization = new Authorization(teacher, authorization_date, authorized_hours);
 			request.setAttribute("authorization", authorization);
+			rd = application.getRequestDispatcher("/Authorization.jsp");
+			rd.forward(request, response);
+
+		} else {
+			List<Authorization> authorizations = authorizationDAO.getAllAuthorizations();
+			rd = application.getRequestDispatcher("/authorizationList.jsp");
+			request.setAttribute("authorizations", authorizations);
+			rd.forward(request, response);
 		}
 
-		rd = application.getRequestDispatcher("/Authorization.jsp");
-		rd.forward(request, response);
 	}
 
 	/**
@@ -81,11 +88,15 @@ public class authorizationController extends HttpServlet {
 		String id = request.getParameter("teacher_id");			
 		Teacher teacher = teacherDAO.getTeacherById(Integer.parseInt(id));
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date authorization_date = null;
+		SimpleDateFormat inputFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+		SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+		Date authorization_date = null;
 		try {
-		    authorization_date = format.parse(request.getParameter("authorization_date"));
+		    String inputDateString = request.getParameter("authorization_date");
+		    Date inputDate = inputFormat.parse(inputDateString);
+		    String outputDateString = outputFormat.format(inputDate);
+		    authorization_date = outputFormat.parse(outputDateString);
 		} catch (ParseException e) {
 		    // Handle the exception if the date string is not in the correct format
 		}
@@ -102,6 +113,8 @@ public class authorizationController extends HttpServlet {
         
 	    Authorization authorization = new Authorization(teacher, authorization_date, authorized_hours);
 	    authorizationDAO.addAuthorization(authorization);
+        response.sendRedirect("/ExamProject/");
+
 	}
 
 }
