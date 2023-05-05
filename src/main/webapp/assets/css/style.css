@@ -71,7 +71,7 @@ body {
 
 .main {
     margin-left: 170px;
-    padding: 0px 10px;
+    padding: 0px 30px;
     margin-top: 26px;
 }
 
@@ -93,3 +93,72 @@ list-style: none;
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+.pdf-header{
+	display: flex;
+    align-items: center;
+    margin-top: 40px;
+    margin-left: 20px;
+}
+.col-left , .col-right{
+	flex:1;	
+}
+.col-middle{
+	flex: 5;
+    text-align: center;
+}
+.col-middle h1{
+	color: #505050;
+    font-weight: 700;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-family: auto;
+}
+.pdf-body{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 90px;
+    margin-left: 20px;
+}
+ .body-col{
+    width: 50%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.pdf-body .row{
+	display: flex;
+	width: 100%;
+}
+ .body-col h1{   
+  	font-size: 18px;
+    font-weight: 600;
+    margin: 10px 0 10px 10px;
+ }
+ .button-submit input{
+     background: url(/ExamProject/assets/img/imprimante.png) no-repeat center;
+    width: 50px;
+    height: 50px;
+    background-size: 40px;
+    border: none;
+}
+ .body-col h2{   
+  	font-size: 17px;
+  	margin: 10px 0;
+ }
+ .signature{
+ 	height:50px;
+ }
+ .pdf-footer{
+ 	float: right;
+ 	margin-top: 40px;
+ }
+ .table-bordered thead tr{
+ 	background-color: #dedede;
+ }
+ .table-bordered thead tr th{
+ 	font-size: 20px;
+ }
+ .pdf-footer h3{
+ 	font-weight: bold;
+ }
