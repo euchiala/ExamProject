@@ -64,10 +64,7 @@ public class AuthorizationDAO {
     
     // Get authorization by id
     public Authorization getAuthorizationsById(int id) {
-        String query = "SELECT a.*,t.first_name, t.last_name, t.email, t.institution, t.phone\\r\\n"
-        		+ "FROM authorizations a\r\n"
-        		+ "JOIN teachers t ON a.teacher_id = t.id\r\n"
-        		+ "WHERE a.id = ?";
+        String query = "SELECT a.*,t.first_name, t.last_name, t.email, t.institution, t.phone FROM authorizations a JOIN teachers t ON a.teacher_id = t.id WHERE a.id = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -75,19 +72,12 @@ public class AuthorizationDAO {
                int teacher_id = resultSet.getInt("teacher_id");
                Date authorization_date	= resultSet.getDate("authorization_date");
                int authorized_hours = resultSet.getInt("authorized_hours");
-               String first_name = resultSet.getString("first_name");
-               String last_name = resultSet.getString("last_name");
-               String email = resultSet.getString("email");
-               String institution = resultSet.getString("institution");
-               int phone = Integer.parseInt(resultSet.getString("phone"));
-               Teacher teacher = new Teacher(teacher_id, first_name, last_name, email, institution,phone);
-               Authorization authorization = new Authorization(id, teacher, authorization_date, authorized_hours);
-
+               Authorization authorization = new Authorization(teacher_id, authorization_date, authorized_hours);
                 return authorization;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+            System.out.println(e.getMessage());        }
         return null;
     }
 }

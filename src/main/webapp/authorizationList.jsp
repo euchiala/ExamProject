@@ -35,7 +35,7 @@
                                 <td>${authorization.authorized_hours}</td>
 
                                 <td>
-                                    <a href="authorizationController?id=${authorization.id}"><i
+                                    <a href="authorizationListController?id=${authorization.id}"><i
                                             class='fas fa-file-pdf'
                                             style='font-size:25px'></i></a>
                                 </td>

@@ -15,10 +15,10 @@
 <div class="sidenav">
 <img src='<c:url value="/assets/img/iit.png"></c:url>' class='logo' /> 
 <ul class="menu">
-<li><a href="">Teacher</a>
+<li><a href="#">Teacher</a>
 <ul class="sub-menu">
-<li><a href="teacherForm.jsp">Add</a></li>
 <li><a href="/ExamProject/">List</a></li>
+<li><a href="teacherForm.jsp">Add</a></li>
 </ul>
 </li>
 <li><a href="#">Authorization</a>

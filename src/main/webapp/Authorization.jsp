@@ -14,56 +14,72 @@
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 				<script>
-					function generatePDF() {
-						var DATA = document.getElementById('htmlData');
+				function generatePDF(callback) {
+				    var DATA = document.getElementById('htmlData');
 
-						html2canvas(DATA).then(canvas => {
-							var imgData = canvas.toDataURL('image/png');
-							var doc = new jsPDF('p', 'mm', 'a4');
-							var width = doc.internal.pageSize.getWidth();
-							var height = (canvas.height * width) / canvas.width;
+				    html2canvas(DATA).then(canvas => {
+				        var imgData = canvas.toDataURL('image/png');
+				        var doc = new jsPDF('p', 'mm', 'a4');
+				        var width = doc.internal.pageSize.getWidth();
+				        var height = (canvas.height * width) / canvas.width;
 
-							doc.addImage(imgData, 'PNG', 0, 0, width, height);
+				        doc.addImage(imgData, 'PNG', 0, 0, width, height);
 
-							var firstName = "${authorization.teacher.first_name}";
-							var lastName = "${authorization.teacher.last_name}";
-							var currentDate = new Date();
-							var day = ("0" + currentDate.getDate()).slice(-2);
-							var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
-							var year = currentDate.getFullYear();
-							var fileName = "Authorization_" + firstName + "_" + lastName + "_" + day + month + year + ".pdf";
-							doc.save(fileName);
-						});
-					}
-					function submitForm() {
-						// Submit the form to authorizationController's doPost method
-						var form = document.createElement("form");
-						form.setAttribute("method", "POST");
-						form.setAttribute("action", "authorizationController");
+				        var firstName = "${authorization.teacher.first_name}";
+				        var lastName = "${authorization.teacher.last_name}";
+				        var currentDate = new Date();
+				        var day = ("0" + currentDate.getDate()).slice(-2);
+				        var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+				        var year = currentDate.getFullYear();
+				        var fileName = "Authorization_" + firstName + "_" + lastName + "_" + day + month + year + ".pdf";
+				        if(window.location.href.includes("authorizationListController")){
+				        	doc.save(fileName);
+				        	window.location.replace("http://localhost:8080/ExamProject/");
+				        }else {
+				        	doc.save(fileName);
+					        callback();
 
-						// Add form data as hidden inputs
-						var idInput = document.createElement("input");
-						idInput.setAttribute("type", "hidden");
-						idInput.setAttribute("name", "teacher_id");
-						idInput.setAttribute("value", "${authorization.teacher.id}");
-						form.appendChild(idInput);
+				        }
+				    });
+				}
 
-						var authDateInput = document.createElement("input");
-						authDateInput.setAttribute("type", "hidden");
-						authDateInput.setAttribute("name", "authorization_date");
-						authDateInput.setAttribute("value", "${authorization.authorization_date}");
-						form.appendChild(authDateInput);
+				function submitForm() {
+				    // Define the callback function to be executed after the PDF has been generated
+				    var callback = function() {
+				        // Submit the form to authorizationController's doPost method
+				        var form = document.createElement("form");
+				        form.setAttribute("method", "POST");
+				        form.setAttribute("action", "authorizationController");
 
-						var authHoursInput = document.createElement("input");
-						authHoursInput.setAttribute("type", "hidden");
-						authHoursInput.setAttribute("name", "authorized_hours");
-						authHoursInput.setAttribute("value", "${authorization.authorized_hours}");
-						form.appendChild(authHoursInput);
+				        // Add form data as hidden inputs
+				        var idInput = document.createElement("input");
+				        idInput.setAttribute("type", "hidden");
+				        idInput.setAttribute("name", "teacher_id");
+				        idInput.setAttribute("value", "${authorization.teacher.id}");
+				        form.appendChild(idInput);
 
-						// Submit the form
-						document.body.appendChild(form);
-						form.submit();
-					}
+				        var authDateInput = document.createElement("input");
+				        authDateInput.setAttribute("type", "hidden");
+				        authDateInput.setAttribute("name", "authorization_date");
+				        authDateInput.setAttribute("value", "${authorization.authorization_date}");
+				        form.appendChild(authDateInput);
+
+				        var authHoursInput = document.createElement("input");
+				        authHoursInput.setAttribute("type", "hidden");
+				        authHoursInput.setAttribute("name", "authorized_hours");
+				        authHoursInput.setAttribute("value", "${authorization.authorized_hours}");
+				        form.appendChild(authHoursInput);
+
+				        // Submit the form
+				        document.body.appendChild(form);
+				        form.submit();
+				    };
+
+				    // Call the generatePDF function and pass in the callback function
+				    generatePDF(callback);
+				}
+
+
 				</script>
 			</head>
 
@@ -169,7 +185,7 @@
 					</div>
 				</div>
 				<div class="button-submit main">
-					<input type="button" value="Print" class="btn btn-default" onclick="generatePDF();">
+					<input type="button" value="Print" class="btn btn-default" onclick="generatePDF();submitForm();">
 				</div>
 			</body>
 
