@@ -44,7 +44,7 @@
 	      <label>Phone:</label>
 	      <input type="text" class="form-control" placeholder="Enter phone" name="phone" value="${teacher.phone}">
 	    </div>
-        <input type="submit" value="Save" class="btn btn-default">
+        <input type="submit" value="" class="btn btn-default btn-add">
     </form>
 </div>
 </body>

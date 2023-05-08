@@ -37,7 +37,7 @@
                                 <td>
                                     <a href="authorizationListController?id=${authorization.id}"><i
                                             class='fas fa-file-pdf'
-                                            style='font-size:25px'></i></a>
+                                            style='font-size:25px;color:black'></i></a>
                                 </td>
                             </tr>
                         </c:forEach>

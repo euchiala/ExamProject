@@ -185,7 +185,7 @@
 					</div>
 				</div>
 				<div class="button-submit main">
-					<input type="button" value="Print" class="btn btn-default" onclick="generatePDF();submitForm();">
+					<input type="button" value="" class="btn btn-default" onclick="generatePDF();submitForm();">
 				</div>
 			</body>
 

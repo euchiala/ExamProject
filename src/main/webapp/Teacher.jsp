@@ -15,20 +15,17 @@
 <div class="layout">
 <jsp:include page="sidebar.jsp" />
 <div class="main">
-    <div class="add-btn">
-        <a href="teacherForm.jsp" class="btn btn-default">Add</a> <br>
-	</div>
     <div class="">
+        
+    </div>
+    <div class="row">
+        <h1>Teachers</h1>
         <form action="import" method="post" enctype="multipart/form-data">
              <div class="form-group">
-                 <input type="submit" value="Import" class="btn btn-default">
+                 <input type="submit" value="" class="btn btn-default btn-import">
                  <input type="file" name="file" class="btn btn-default">
              </div>    
          </form>
-    </div>
-    <div class="row">
-	    
-        <h1>Teachers</h1>
     </div>
     <table class="table table-striped">
     <thead>	
@@ -49,9 +46,9 @@
                 <td>${teacher.phone}</td>
 
                 <td>
-                	<a href="authorizationController?id=${teacher.id}"><i class='fas fa-file-pdf' style='font-size:25px'></i></a>
-                    <a href="teacherFormController?id=${teacher.id}"><i class="fa fa-edit" style="font-size:25px"></i></a>
-                    <a href="?id=${teacher.id}"><i class="fa fa-trash" style="font-size:25px"></i></a>
+                	<a href="authorizationController?id=${teacher.id}"><i class='fas fa-file-pdf' style='font-size:25px;color:black'></i></a>
+                    <a href="teacherFormController?id=${teacher.id}"><i class="fa fa-edit" style="font-size:25px;color:black"></i></a>
+                    <a href="?id=${teacher.id}"><i class="fa fa-trash" style="font-size:25px;color:black"></i></a>
                 </td>
             </tr>
         </c:forEach>
